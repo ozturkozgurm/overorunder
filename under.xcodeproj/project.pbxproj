@@ -6,13 +6,36 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F2978E4B2F38C330002B357D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2978E4A2F38C330002B357D /* FirebaseAnalytics */; };
+		F2978E4D2F38C330002B357D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2978E4C2F38C330002B357D /* FirebaseCore */; };
+		F2978E4F2F38C330002B357D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F2978E4E2F38C330002B357D /* FirebaseStorage */; };
+		F2978E682F38D369002B357D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = F2978E672F38D369002B357D /* FirebaseMessaging */; };
+		F2978E812F41C097002B357D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2978E802F41C096002B357D /* StoreKit.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F2978E212F376678002B357D /* under.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = under.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2978E802F41C096002B357D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		F2978E862F41C94A002B357D /* Subscriptions.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = Subscriptions.storekit; path = under/Subscriptions.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F2978E662F38D30E002B357D /* Exceptions for "under" folder in "under" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F2978E202F376678002B357D /* under */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F2978E232F376678002B357D /* under */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F2978E662F38D30E002B357D /* Exceptions for "under" folder in "under" target */,
+			);
 			path = under;
 			sourceTree = "<group>";
 		};
@@ -23,6 +46,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2978E682F38D369002B357D /* FirebaseMessaging in Frameworks */,
+				F2978E4D2F38C330002B357D /* FirebaseCore in Frameworks */,
+				F2978E812F41C097002B357D /* StoreKit.framework in Frameworks */,
+				F2978E4B2F38C330002B357D /* FirebaseAnalytics in Frameworks */,
+				F2978E4F2F38C330002B357D /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,7 +60,9 @@
 		F2978E182F376678002B357D = {
 			isa = PBXGroup;
 			children = (
+				F2978E862F41C94A002B357D /* Subscriptions.storekit */,
 				F2978E232F376678002B357D /* under */,
+				F2978E492F38C330002B357D /* Frameworks */,
 				F2978E222F376678002B357D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +73,14 @@
 				F2978E212F376678002B357D /* under.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F2978E492F38C330002B357D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2978E802F41C096002B357D /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +103,10 @@
 			);
 			name = under;
 			packageProductDependencies = (
+				F2978E4A2F38C330002B357D /* FirebaseAnalytics */,
+				F2978E4C2F38C330002B357D /* FirebaseCore */,
+				F2978E4E2F38C330002B357D /* FirebaseStorage */,
+				F2978E672F38D369002B357D /* FirebaseMessaging */,
 			);
 			productName = under;
 			productReference = F2978E212F376678002B357D /* under.app */;
@@ -94,6 +136,9 @@
 			);
 			mainGroup = F2978E182F376678002B357D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F2978E482F38BDC8002B357D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F2978E222F376678002B357D /* Products */;
 			projectDirPath = "";
@@ -251,11 +296,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = under/under.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 746VVWJJJ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = under/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -266,7 +313,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ozturkozgurm.under;
+				PRODUCT_BUNDLE_IDENTIFIER = ozturkozgurm.overorunder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -283,11 +330,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = under/under.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 746VVWJJJ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = under/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -298,7 +347,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ozturkozgurm.under;
+				PRODUCT_BUNDLE_IDENTIFIER = ozturkozgurm.overorunder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -332,6 +381,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F2978E482F38BDC8002B357D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F2978E4A2F38C330002B357D /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2978E482F38BDC8002B357D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		F2978E4C2F38C330002B357D /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2978E482F38BDC8002B357D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		F2978E4E2F38C330002B357D /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2978E482F38BDC8002B357D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		F2978E672F38D369002B357D /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2978E482F38BDC8002B357D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F2978E192F376678002B357D /* Project object */;
 }

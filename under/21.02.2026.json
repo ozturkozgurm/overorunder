@@ -1,11 +1,17 @@
 [
-  {"id":"1302_TR_GS_SIV","homeTeam":"Galatasaray","awayTeam":"Sivasspor","eventName":"Süper Lig","guess":"2.5 Üst","date":"13.02.2026 20:00","isUnlocked":false},
-  {"id":"1302_EN_BOU_WHU","homeTeam":"Bournemouth","awayTeam":"West Ham","eventName":"Premier League","guess":"2.5 Üst","date":"13.02.2026 22:45","isUnlocked":false},
-  {"id":"1302_ES2_ALM_ELC","homeTeam":"Almeria","awayTeam":"Elche","eventName":"La Liga 2","guess":"2.5 Alt","date":"13.02.2026 21:30","isUnlocked":false},
-  {"id":"1302_IT2_PAL_BAR","homeTeam":"Palermo","awayTeam":"Bari","eventName":"Serie B","guess":"2.5 Alt","date":"13.02.2026 22:30","isUnlocked":false},
-  {"id":"1302_DE_DOR_AUG","homeTeam":"Dortmund","awayTeam":"Augsburg","eventName":"Bundesliga","guess":"2.5 Üst","date":"13.02.2026 22:30","isUnlocked":false},
-  {"id":"1302_FR2_MET_CAE","homeTeam":"Metz","awayTeam":"Caen","eventName":"Ligue 2","guess":"2.5 Alt","date":"13.02.2026 21:45","isUnlocked":false},
-  {"id":"1302_BE_AND_BRU","homeTeam":"Anderlecht","awayTeam":"Club Brugge","eventName":"Belçika Pro League","guess":"2.5 Üst","date":"13.02.2026 22:45","isUnlocked":false},
-  {"id":"1302_CH_LEE_NOR","homeTeam":"Leeds","awayTeam":"Norwich","eventName":"Championship","guess":"2.5 Üst","date":"13.02.2026 22:00","isUnlocked":false},
-  {"id":"1302_PT_SLB_BRA","homeTeam":"Benfica","awayTeam":"Braga","eventName":"Portekiz Liga","guess":"2.5 Üst","date":"13.02.2026 23:15","isUnlocked":false}
+  { "id": "210226_01", "eventName": "Premier League", "date": "15:30", "homeTeam": "Arsenal", "awayTeam": "Everton", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_02", "eventName": "Premier League", "date": "18:00", "homeTeam": "Liverpool", "awayTeam": "Leicester", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_03", "eventName": "Premier League", "date": "18:00", "homeTeam": "Man Utd", "awayTeam": "Ipswich", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_04", "eventName": "Premier League", "date": "20:30", "homeTeam": "West Ham", "awayTeam": "Brighton", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "210226_05", "eventName": "La Liga", "date": "16:15", "homeTeam": "Real Madrid", "awayTeam": "Osasuna", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_06", "eventName": "La Liga", "date": "18:30", "homeTeam": "Villarreal", "awayTeam": "Alaves", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "210226_07", "eventName": "La Liga", "date": "21:00", "homeTeam": "Sevilla", "awayTeam": "Sociedad", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "210226_08", "eventName": "Bundesliga", "date": "17:30", "homeTeam": "Bayern Münih", "awayTeam": "Augsburg", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_09", "eventName": "Bundesliga", "date": "17:30", "homeTeam": "Leverkusen", "awayTeam": "St. Pauli", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_10", "eventName": "Serie A", "date": "17:00", "homeTeam": "Juventus", "awayTeam": "Parma", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "210226_11", "eventName": "Serie A", "date": "20:00", "homeTeam": "AC Milan", "awayTeam": "Como", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_12", "eventName": "Trendyol Süper Lig", "date": "16:00", "homeTeam": "Konyaspor", "awayTeam": "Samsunspor", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "210226_13", "eventName": "Trendyol Süper Lig", "date": "19:00", "homeTeam": "Fenerbahçe", "awayTeam": "Sivasspor", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_14", "eventName": "Ligue 1", "date": "19:00", "homeTeam": "Monaco", "awayTeam": "Strasbourg", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "210226_15", "eventName": "Ligue 1", "date": "22:00", "homeTeam": "Lens", "awayTeam": "Saint-Etienne", "guess": "2.5 ALT", "isUnlocked": false }
 ]

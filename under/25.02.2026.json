@@ -1,6 +1,6 @@
 [
-  {"id":"1702_UCL_REA_MNC","homeTeam":"Real Madrid","awayTeam":"Man City","eventName":"Şampiyonlar Ligi","guess":"2.5 Üst","date":"17.02.2026 23:00","isUnlocked":false},
-  {"id":"1702_UCL_BAY_ARS","homeTeam":"Bayern","awayTeam":"Arsenal","eventName":"Şampiyonlar Ligi","guess":"2.5 Üst","date":"17.02.2026 23:00","isUnlocked":false},
-  {"id":"1702_CH_CAR_BLA","homeTeam":"Cardiff","awayTeam":"Blackburn","eventName":"Championship","guess":"2.5 Üst","date":"17.02.2026 22:45","isUnlocked":false},
-  {"id":"1702_ES2_ELD_HUE","homeTeam":"Eldense","awayTeam":"Huesca","eventName":"La Liga 2","guess":"2.5 Alt","date":"17.02.2026 21:00","isUnlocked":false}
+  { "id": "250226_01", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "Real Madrid", "awayTeam": "Benfica", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "250226_02", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "Arsenal", "awayTeam": "Juventus", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "250226_03", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "Bayern Münih", "awayTeam": "Aston Villa", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "250226_04", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "PSG", "awayTeam": "Sporting CP", "guess": "2.5 ÜST", "isUnlocked": false }
 ]

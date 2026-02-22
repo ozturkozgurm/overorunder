@@ -1,7 +1,6 @@
 [
-  {"id":"1602_TR_ALA_RIZ","homeTeam":"Alanyaspor","awayTeam":"Rizespor","eventName":"Süper Lig","guess":"2.5 Alt","date":"16.02.2026 20:00","isUnlocked":false},
-  {"id":"1602_EN_FUL_EVE","homeTeam":"Fulham","awayTeam":"Everton","eventName":"Premier League","guess":"2.5 Alt","date":"16.02.2026 23:00","isUnlocked":false},
-  {"id":"1602_ES_CEL_OSA","homeTeam":"Celta Vigo","awayTeam":"Osasuna","eventName":"La Liga","guess":"2.5 Alt","date":"16.02.2026 22:00","isUnlocked":false},
-  {"id":"1602_IT_VER_UDI","homeTeam":"Verona","awayTeam":"Udinese","eventName":"Serie A","guess":"2.5 Alt","date":"16.02.2026 21:45","isUnlocked":false},
-  {"id":"1602_CH_STK_HUL","homeTeam":"Stoke City","awayTeam":"Hull City","eventName":"Championship","guess":"2.5 Alt","date":"16.02.2026 22:00","isUnlocked":false}
+  { "id": "240226_01", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "Manchester City", "awayTeam": "Inter", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "240226_02", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "Bayer Leverkusen", "awayTeam": "Atletico Madrid", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "240226_03", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "Barcelona", "awayTeam": "Dortmund", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "240226_04", "eventName": "UEFA Champions League", "date": "23:00", "homeTeam": "RB Leipzig", "awayTeam": "AC Milan", "guess": "2.5 ÜST", "isUnlocked": false }
 ]
