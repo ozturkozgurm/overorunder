@@ -1,0 +1,17 @@
+[
+  {"id":"1402_TR_FB_BJK","homeTeam":"Fenerbahçe","awayTeam":"Beşiktaş","eventName":"Süper Lig","guess":"2.5 Üst","date":"14.02.2026 19:00","isUnlocked":false},
+  {"id":"1402_EN_ARS_MNC","homeTeam":"Arsenal","awayTeam":"Man City","eventName":"Premier League","guess":"2.5 Üst","date":"14.02.2026 15:30","isUnlocked":false},
+  {"id":"1402_ES_REA_BAR","homeTeam":"Real Madrid","awayTeam":"Barcelona","eventName":"La Liga","guess":"2.5 Üst","date":"14.02.2026 22:00","isUnlocked":false},
+  {"id":"1402_IT_INT_MIL","homeTeam":"Inter","awayTeam":"Milan","eventName":"Serie A","guess":"2.5 Alt","date":"14.02.2026 20:45","isUnlocked":false},
+  {"id":"1402_DE_BYN_FRA","homeTeam":"Bayern","awayTeam":"Frankfurt","eventName":"Bundesliga","guess":"2.5 Üst","date":"14.02.2026 17:30","isUnlocked":false},
+  {"id":"1402_FR_LYO_PSG","homeTeam":"Lyon","awayTeam":"PSG","eventName":"Ligue 1","guess":"2.5 Üst","date":"14.02.2026 22:00","isUnlocked":false},
+  {"id":"1402_ES2_ZAR_ESP","homeTeam":"Zaragoza","awayTeam":"Espanyol","eventName":"La Liga 2","guess":"2.5 Alt","date":"14.02.2026 19:30","isUnlocked":false},
+  {"id":"1402_IT2_SAM_PAR","homeTeam":"Sampdoria","awayTeam":"Parma","eventName":"Serie B","guess":"2.5 Alt","date":"14.02.2026 17:00","isUnlocked":false},
+  {"id":"1402_CH_SUN_SHE","homeTeam":"Sunderland","awayTeam":"Sheffield Utd","eventName":"Championship","guess":"2.5 Alt","date":"14.02.2026 17:00","isUnlocked":false},
+  {"id":"1402_BE_GEN_GEN","homeTeam":"Genk","awayTeam":"Gent","eventName":"Belçika Pro League","guess":"2.5 Üst","date":"14.02.2026 20:15","isUnlocked":false},
+  {"id":"1402_PT_POR_SCP","homeTeam":"Porto","awayTeam":"Sporting CP","eventName":"Portekiz Liga","guess":"2.5 Üst","date":"14.02.2026 22:30","isUnlocked":false},
+  {"id":"1402_FR2_BOR_STE","homeTeam":"Bordeaux","awayTeam":"St Etienne","eventName":"Ligue 2","guess":"2.5 Alt","date":"14.02.2026 16:00","isUnlocked":false},
+  {"id":"1402_EN_LIV_CHE","homeTeam":"Liverpool","awayTeam":"Chelsea","eventName":"Premier League","guess":"2.5 Üst","date":"14.02.2026 18:00","isUnlocked":false},
+  {"id":"1402_ES_ATM_SEV","homeTeam":"Atl. Madrid","awayTeam":"Sevilla","eventName":"La Liga","guess":"2.5 Alt","date":"14.02.2026 19:15","isUnlocked":false},
+  {"id":"1402_DE_LEV_RBL","homeTeam":"Leverkusen","awayTeam":"RB Leipzig","eventName":"Bundesliga","guess":"2.5 Üst","date":"14.02.2026 17:30","isUnlocked":false}
+]

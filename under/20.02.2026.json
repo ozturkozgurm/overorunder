@@ -1,0 +1,7 @@
+[
+  { "id": "200226_01", "eventName": "Trendyol Süper Lig", "date": "20:00", "homeTeam": "Kasımpaşa", "awayTeam": "Antalyaspor", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "200226_02", "eventName": "Bundesliga", "date": "22:30", "homeTeam": "Mainz 05", "awayTeam": "B. Dortmund", "guess": "2.5 ÜST", "isUnlocked": false },
+  { "id": "200226_03", "eventName": "Ligue 1", "date": "23:00", "homeTeam": "Rennes", "awayTeam": "Nice", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "200226_04", "eventName": "La Liga", "date": "23:00", "homeTeam": "Getafe", "awayTeam": "Valladolid", "guess": "2.5 ALT", "isUnlocked": false },
+  { "id": "200226_05", "eventName": "Serie A", "date": "22:45", "homeTeam": "Verona", "awayTeam": "Lecce", "guess": "2.5 ALT", "isUnlocked": false }
+]
