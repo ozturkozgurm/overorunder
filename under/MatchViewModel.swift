@@ -1,6 +1,7 @@
 import Foundation
 import FirebaseCore
 import FirebaseStorage
+import FirebaseDatabase
 import Combine
 import SwiftUI
 
@@ -10,7 +11,7 @@ class MatchViewModel: ObservableObject {
     @Published var matches: [Match] = []
     @Published var isLoading: Bool = false
     @Published var activeSignals: [Match] = []
-    @Published var errorMessage: String? = nil // ✅ Yeni: Hata takibi için
+    @Published var errorMessage: String? = nil
     
     // --- Abonelik Durum Değişkenleri ---
     @Published var isTrialActive: Bool = false
@@ -28,6 +29,8 @@ class MatchViewModel: ObservableObject {
     
     // MARK: - Private Properties
     private lazy var storage = Storage.storage()
+    // ✅ URL ile Manuel Referans: GoogleService-Info.plist hatasını önler
+    private let dbBaseRef = Database.database(url: "https://overorunder-7943d-default-rtdb.europe-west1.firebasedatabase.app/").reference()
     private let unlockedMatchesKey = "unlocked_matches_ids"
     private var cancellables = Set<AnyCancellable>()
     
@@ -117,66 +120,65 @@ class MatchViewModel: ObservableObject {
         return max(0, Int(remaining / (24 * 60 * 60)))
     }
     
-    // MARK: - Firebase & Data Fetching
+    // MARK: - Firebase & Realtime Database Fetching
     
-    // ✅ Yeni: Takvimden seçilen tarihe göre veri çekmek için
     func fetchMatches(for date: Date) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        let fileName = "\(formatter.string(from: date)).json"
-        fetchMatchesFromFirebase(fileName: fileName)
+        formatter.dateFormat = "dd-MM-yyyy" // Admin panelindeki tireli format
+        let dateKey = formatter.string(from: date)
+        fetchMatchesFromDatabase(dateKey: dateKey)
     }
     
     func fetchTodayMatches() {
         fetchMatches(for: Date())
     }
     
-    func fetchMatchesFromFirebase(fileName: String) {
+    /// ✅ GÜNCELLENDİ: Artık Storage'dan değil, Database'den (Node) veri çekiyor.
+    func fetchMatchesFromDatabase(dateKey: String) {
         self.isLoading = true
-        self.errorMessage = nil // Yeni bir istek başlarken hatayı sıfırla
+        self.errorMessage = nil
         
-        let storageRef = storage.reference(forURL: "gs://overorunder-7943d.firebasestorage.app/\(fileName)")
+        // Admin panelindeki yol: matches -> 24-02-2026
+        let matchesRef = dbBaseRef.child("matches").child(dateKey)
         
-        storageRef.getData(maxSize: 1 * 1024 * 1024) { [weak self] data, error in
+        matchesRef.observe(.value) { [weak self] snapshot in
             guard let self = self else { return }
             
-            if let error = error {
-                print("Firebase Hatası: \(error.localizedDescription)")
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self.isLoading = false
+                
+                if let value = snapshot.value as? [String: [String: Any]] {
+                    // Dictionary yapısını Match modeline çeviriyoruz
+                    let decodedMatches = value.values.compactMap { dict -> Match? in
+                        return Match(
+                            id: dict["id"] as? String ?? UUID().uuidString,
+                            eventName: dict["eventName"] as? String ?? "Günün Analizi",
+                            date: dict["date"] as? String ?? "", // Maç saati
+                            homeTeam: dict["homeTeam"] as? String ?? "",
+                            awayTeam: dict["awayTeam"] as? String ?? "",
+                            guess: dict["guess"] as? String ?? "",
+                            isUnlocked: dict["isUnlocked"] as? Bool ?? false
+                        )
+                    }
+                    
+                    self.errorMessage = nil
+                    self.matches = decodedMatches.sorted(by: { $0.date < $1.date })
+                    // Kilit durumunu dateKey üzerinden senkronize et
+                    self.syncUnlockStatus(for: dateKey)
+                    print("✅ \(dateKey) verileri başarıyla çekildi.")
+                    
+                } else {
                     self.matches = []
-                    self.errorMessage = error.localizedDescription // ✅ Yeni: Hata mesajını kaydet
-                    self.isLoading = false
-                }
-                return
-            }
-            
-            guard let data = data else {
-                DispatchQueue.main.async { self.isLoading = false }
-                return
-            }
-            
-            do {
-                let decodedData = try JSONDecoder().decode([Match].self, from: data)
-                DispatchQueue.main.async {
-                    self.errorMessage = nil // Başarılıysa hatayı temizle
-                    self.matches = decodedData
-                    self.syncUnlockStatus(for: fileName)
-                    self.isLoading = false
-                }
-            } catch {
-                print("Decode Hatası: \(error)")
-                DispatchQueue.main.async {
-                    self.errorMessage = "Veri formatı hatalı."
-                    self.isLoading = false
+                    print("ℹ️ \(dateKey) tarihinde veri bulunamadı.")
                 }
             }
         }
     }
     
     // MARK: - Locking Mechanism
-    private func syncUnlockStatus(for fileName: String) {
+    private func syncUnlockStatus(for dateKey: String) {
         guard !matches.isEmpty else { return }
-        let dateSpecificKey = "unlocked_ids_\(fileName)"
+        let dateSpecificKey = "unlocked_ids_\(dateKey)"
         let unlockedStringIDs = UserDefaults.standard.stringArray(forKey: dateSpecificKey) ?? []
         var unlockedIDs = Set(unlockedStringIDs)
         
@@ -189,7 +191,7 @@ class MatchViewModel: ObservableObject {
             default: countToUnlock = 0
             }
             
-            for i in 0..<countToUnlock {
+            for i in 0..<min(countToUnlock, matches.count) {
                 unlockedIDs.insert(matches[i].id)
             }
             UserDefaults.standard.set(Array(unlockedIDs), forKey: dateSpecificKey)
@@ -203,8 +205,8 @@ class MatchViewModel: ObservableObject {
         self.objectWillChange.send()
     }
     
-    func saveUnlockedMatch(id: String, fileName: String) {
-        let dateSpecificKey = "unlocked_ids_\(fileName)"
+    func saveUnlockedMatch(id: String, dateKey: String) {
+        let dateSpecificKey = "unlocked_ids_\(dateKey)"
         var dailyIDs = Set(UserDefaults.standard.stringArray(forKey: dateSpecificKey) ?? [])
         dailyIDs.insert(id)
         UserDefaults.standard.set(Array(dailyIDs), forKey: dateSpecificKey)
@@ -280,8 +282,31 @@ class MatchViewModel: ObservableObject {
         syncWithStoreManager()
     }
     
-    // ✅ Yeni: Yenileme butonu için
     func refreshData(for date: Date) {
         fetchMatches(for: date)
+    }
+    
+    func recordSuccessfulPayment(planID: String, amount: Double) {
+        // ✅ DÜZELTME: dbBaseRef üzerinden Realtime Database'e kayıt
+        let paymentRef = dbBaseRef.child("payments").childByAutoId()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        
+        let paymentData: [String: Any] = [
+            "planID": planID,
+            "amount": amount,
+            "date": formatter.string(from: Date()),
+            "timestamp": ServerValue.timestamp(),
+            "userId": self.userId
+        ]
+        
+        paymentRef.setValue(paymentData) { error, _ in
+            if let error = error {
+                print("❌ Ödeme kaydı hatası: \(error.localizedDescription)")
+            } else {
+                print("✅ Ödeme admin paneline başarıyla düştü.")
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ class StoreManager: ObservableObject {
     @Published private(set) var purchasedProductIDs = Set<String>()
     @Published var showExpirationAlert = false
     @Published var isPremium: Bool = UserDefaults.standard.bool(forKey: "isPremium")
+    var viewModel: MatchViewModel?
     
     // App Store Connect'teki Product ID'lerinizle tam eşleşmelidir
     private let productIDs = ["yillik_plan", "aylik_plan", "haftalik_plan"]
@@ -55,16 +56,37 @@ class StoreManager: ObservableObject {
             print("❌ StoreKit: Ürün bulunamadı: \(productID)")
             return
         }
-
+        
         let result = try await product.purchase()
-
+        
         switch result {
         case .success(let verification):
             // Apple'dan gelen veriyi doğrula
             let transaction = try checkVerified(verification)
             
-            // ✅ İşlem Başarılı
-            print("✅ Satın Alma Başarılı: \(transaction.productID)")
+            // ✅ YENİ: Deneme Süresi (Trial) ve Ücret Kontrolü
+            var finalAmount: Double = 0.0
+            var planName: String = product.id
+            
+            // Eğer offerType varsa ve introductory (deneme/tanıtım) ise Trial olarak işaretle
+            if let offer = transaction.offer {
+                if offer.type == .introductory {
+                    finalAmount = 0.0
+                    planName = "Trial: \(product.id)"
+                }
+            } else {
+                // Gerçek satın alma veya deneme süresi bittikten sonraki ilk yenileme
+                finalAmount = NSDecimalNumber(decimal: product.price).doubleValue
+            }
+            
+            // ✅ Firebase Kaydı: ViewModel üzerinden dinamik verileri gönder
+            // Not: ViewModel'ın StoreManager içinde tanımlı olduğundan emin ol
+            viewModel?.recordSuccessfulPayment( // 👈 Soru işareti ekledik
+                planID: planName,
+                amount: finalAmount
+            )
+            
+            print("✅ Satın Alma Başarılı: \(transaction.productID) - Tutar: \(finalAmount)")
             
             // UI ve Yerel Durumu Güncelle
             await updatePurchasedProducts()

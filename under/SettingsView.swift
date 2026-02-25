@@ -182,7 +182,7 @@ struct SettingsView: View {
     private func requestReview() {
         // Apple'ın değerlendirme popup'ını tetikler (Sınırlı sayıda gösterilir)
         if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
+            AppStore.requestReview(in: scene)
         }
     }
 }

@@ -10,13 +10,14 @@ struct ContentView: View {
     @State private var showSubscriptionSheet = false
     @State private var isScreenCaptured: Bool = false
     
-    // 💡 GÜVENLİK ŞALTERİ: Screenshot engelleyiciyi buradan kontrol edebilirsin.
+    // 💡 GÜVENLİK ŞALTERİ
     @State private var isSecurityEnabled: Bool = false
     
-    private func getFileName(for date: Date) -> String {
+    // ✅ GÜNCELLENDİ: Admin paneliyle eşleşen tarih anahtarı (24-02-2026)
+    private func getDateKey(for date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        return "\(formatter.string(from: date)).json"
+        formatter.dateFormat = "dd-MM-yyyy"
+        return formatter.string(from: date)
     }
     
     var body: some View {
@@ -31,7 +32,8 @@ struct ContentView: View {
                     .padding(.vertical, 8)
                     .background(Color(.systemBackground))
                     .onChange(of: selectedDate) { _, newValue in
-                        viewModel.fetchMatchesFromFirebase(fileName: getFileName(for: newValue))
+                        // ✅ GÜNCELLENDİ: Artık database fonksiyonunu çağırıyor
+                        viewModel.fetchMatchesFromDatabase(dateKey: getDateKey(for: newValue))
                     }
                 Divider().padding(.top, 10)
                 
@@ -41,12 +43,10 @@ struct ContentView: View {
                     if viewModel.isLoading {
                         StatusStateView(type: .loading)
                     } else if viewModel.errorMessage != nil {
-                        // İnternet hatası vs. varsa
                         StatusStateView(type: .error) {
                             viewModel.refreshData(for: selectedDate)
                         }
                     } else if viewModel.matches.isEmpty {
-                        // Veri gerçekten yoksa
                         StatusStateView(type: .noData) {
                             viewModel.refreshData(for: selectedDate)
                         }
@@ -85,7 +85,6 @@ struct ContentView: View {
                 }
             }
             .navigationBarHidden(true)
-            // 🛠 TÜM SHEET VE BAĞLANTILAR
             .sheet(isPresented: $showSettings) {
                 SettingsView().environmentObject(viewModel)
             }
@@ -108,7 +107,8 @@ struct ContentView: View {
         .onAppear {
             if !hasSeenOnboarding { showOnboarding = true }
             viewModel.syncWithStoreManager()
-            viewModel.fetchMatchesFromFirebase(fileName: getFileName(for: selectedDate))
+            // ✅ GÜNCELLENDİ
+            viewModel.fetchMatchesFromDatabase(dateKey: getDateKey(for: selectedDate))
             updateCaptureStatus()
         }
     }
@@ -137,7 +137,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - SecurityView (Screenshot Engelleyici Katman)
+// MARK: - SecurityView
 struct SecurityView<Content: View>: UIViewRepresentable {
     let content: Content
     init(@ViewBuilder content: () -> Content) { self.content = content() }
@@ -161,7 +161,7 @@ struct SecurityView<Content: View>: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
-// MARK: - LiveSignalRow (Canlı Maç Görünümü)
+// MARK: - LiveSignalRow
 struct LiveSignalRow: View {
     let signal: Match
     @ObservedObject var viewModel: MatchViewModel
@@ -195,7 +195,7 @@ struct LiveSignalRow: View {
     }
 }
 
-// MARK: - DateStripView (Yatay Tarih Şeridi)
+// MARK: - DateStripView
 struct DateStripView: View {
     @Binding var selectedDate: Date
     @State private var showCalendar = false
@@ -208,7 +208,6 @@ struct DateStripView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            // 1. GÜN ŞERİDİ (Eşit Dağıtılmış ve Ortalı)
             HStack(spacing: 0) {
                 ForEach(days, id: \.self) { date in
                     VStack(spacing: 6) {
@@ -230,9 +229,8 @@ struct DateStripView: View {
                     .onTapGesture { withAnimation { selectedDate = date } }
                 }
             }
-            .padding(.leading, 5) // Sol tarafla denge kurmak için
+            .padding(.leading, 5)
             
-            // 2. ✅ TAKVİM BUTONU (Görseldeki gibi baloncuk açan versiyon)
             Button(action: { showCalendar = true }) {
                 Image(systemName: "calendar")
                     .font(.system(size: 18, weight: .bold))
@@ -243,14 +241,12 @@ struct DateStripView: View {
             }
             .padding(.trailing, 15)
             .popover(isPresented: $showCalendar, arrowEdge: .top) {
-                // TAKVİM İÇERİĞİ
                 VStack {
                     DatePicker("Tarih Seç", selection: $selectedDate, displayedComponents: .date)
                         .datePickerStyle(.graphical)
                         .padding()
                 }
                 .frame(width: 340, height: 380)
-                // 🚀 KRİTİK SATIR: iPhone'da tam ekran olmasını engeller, baloncuk yapar.
                 .presentationCompactAdaptation(.popover)
                 .onChange(of: selectedDate) { _, _ in
                     showCalendar = false
