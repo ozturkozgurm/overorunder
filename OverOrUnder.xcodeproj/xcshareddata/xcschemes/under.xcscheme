@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F2978E202F376678002B357D"
-               BuildableName = "under.app"
-               BlueprintName = "under"
-               ReferencedContainer = "container:under.xcodeproj">
+               BuildableName = "OverOrUnder.app"
+               BlueprintName = "OverOrUnder"
+               ReferencedContainer = "container:OverOrUnder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F2978E202F376678002B357D"
-            BuildableName = "under.app"
-            BlueprintName = "under"
-            ReferencedContainer = "container:under.xcodeproj">
+            BuildableName = "OverOrUnder.app"
+            BlueprintName = "OverOrUnder"
+            ReferencedContainer = "container:OverOrUnder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F2978E202F376678002B357D"
-            BuildableName = "under.app"
-            BlueprintName = "under"
-            ReferencedContainer = "container:under.xcodeproj">
+            BuildableName = "OverOrUnder.app"
+            BlueprintName = "OverOrUnder"
+            ReferencedContainer = "container:OverOrUnder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

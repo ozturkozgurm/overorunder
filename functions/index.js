@@ -1,42 +1,38 @@
-const { onDocumentUpdated } = require("firebase-functions/v2/firestore");
-const admin = require("firebase-admin");
+import { onValueCreated } from "firebase-functions/v2/database";
+import { initializeApp } from "firebase-admin/app";
+import { getMessaging } from "firebase-admin/messaging";
 
-admin.initializeApp();
+initializeApp();
 
-exports.sendLiveMatchNotification = onDocumentUpdated("LiveSignals/{signalId}", async (event) => {
-    if (!event.data) return null;
+// ✅ Veritabanı URL'ini ve Bölgeyi (europe-west1) açıkça belirtiyoruz
+export const sendMatchNotification = onValueCreated({
+    ref: "/matches/{date}/{matchId}",
+    instance: "overorunder-7943d-default-rtdb", // Veritabanı ismin
+    region: "europe-west1" // 👈 Belçika bölgesi
+}, async (event) => {
+    const matchData = event.data.val();
 
-    const newValue = event.data.after.data();
-    const previousValue = event.data.before.data();
-
-    if (newValue.status === "ready_to_publish" && previousValue.status !== "ready_to_publish") {
-        
-        // Yeni 'send' metoduna uygun mesaj yapısı
-        const message = {
-            notification: {
-                title: "🔥 CANLI TAHMİN GELDİ!",
-                body: `${newValue.homeTeam} - ${newValue.awayTeam} maçı için yeni bir tahmin var.`
-            },
-            data: {
-                matchID: newValue.id || event.params.signalId,
-                homeTeam: newValue.homeTeam,
-                awayTeam: newValue.awayTeam,
-                prediction: newValue.prediction,
-                minute: newValue.minute || "1'", // Firestore'dan gelen dakika bilgisini al
-                type: "LIVE_SIGNAL"
-            },
-            topic: "all_users" // Topic artık mesajın içinde tanımlanıyor
-        };
-
-        try {
-            // Eski sendToTopic yerine yeni 'send' metodu
-            const response = await admin.messaging().send(message);
-            console.log("✅ Bildirim başarıyla gönderildi:", response);
-
-            return event.data.after.ref.update({ status: "published" });
-        } catch (error) {
-            console.error("❌ Bildirim gönderme hatası:", error);
-        }
+    if (!matchData || !matchData.sendPush) {
+        console.log("Bildirim gönderimi kapalı veya veri bulunamadı.");
+        return;
     }
-    return null;
+
+    const homeTeam = matchData.homeTeam || "Bilinmeyen Takım";
+    const awayTeam = matchData.awayTeam || "Bilinmeyen Takım";
+    const guess = matchData.guess || "Yeni Analiz";
+
+    const message = {
+        notification: {
+            title: "Yeni Analiz Eklendi! ⚽️",
+            body: `${homeTeam} - ${awayTeam} maçı için ${guess} tahmini hazır. Hemen göz at!`,
+        },
+        topic: "all_users",
+    };
+
+    try {
+        const response = await getMessaging().send(message);
+        console.log("✅ Bildirim başarıyla gönderildi:", response);
+    } catch (error) {
+        console.error("❌ Bildirim gönderilirken hata oluştu:", error);
+    }
 });
